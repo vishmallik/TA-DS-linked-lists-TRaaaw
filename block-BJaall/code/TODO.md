@@ -16,7 +16,7 @@ step-3: We keep doing it. Until we hit the last element of the array. In that wa
 
 step-4: Now we will repeat the step 1, 2 and 3 but we will keep in mind not to touch the last element.
 
-![Bubble Sort Example](./bubble.png)
+![Bubble Sort Example](../assets/bubble.png)
 
 <!-- You answer -->
 
@@ -28,11 +28,11 @@ step-2: Now again we will repeat the same process starting from second index of 
 
 step-3: We keep doing it. Until we sort the array.
 
-![Selection Sort Example](./selection.png)
+![Selection Sort Example](../assets/selection.png)
 
 #### Insertion Sort
 
-step-1: First we will select the first element and check any element left of it. Since it is first elemen, there wont be any other element. So consider it sorted.
+step-1: First we will select the first element and check any element left of it. Since it is first element, there wont be any other element. So consider it sorted.
 
 step-2: Now move to second element, check its left element and compare, if it is less than left element then swap.
 
@@ -40,7 +40,7 @@ step-3: Now move to next element, and check if its position is correct or not by
 
 step-4: Continue doing this until last element and we will get the sorted array.
 
-![Insertion Sort Example](./insertion.png)
+![Insertion Sort Example](../assets/insertion.png)
 
 2. Create a function named `bubbleSort` that accepts an array of numbers and returns the array with sorted values. The elements should be in ascending order. Use the bubble sorting algorithms. After writing the function test it with an array and check if you are getting the right output.
 
