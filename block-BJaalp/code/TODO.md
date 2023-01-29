@@ -31,6 +31,96 @@
 
 ```js
 // Your code goes here
+class Node {
+  constructor(element) {
+    this.element = element;
+    this.next = null;
+  }
+}
+
+class LinkedList {
+  constructor(head = null) {
+    this.head = new Node(head);
+  }
+  insertHead(element) {
+    let node = new Node(element);
+    if (this.head === null) {
+      this.head = node;
+    } else {
+      let currentNode = this.head;
+      node.next = currentNode;
+      this.head = node;
+    }
+  }
+  removeHead() {
+    if (this.head === null) {
+      return false;
+    } else {
+      let currentNode = this.head;
+      this.head = currentNode.next;
+    }
+  }
+  insertTail(element) {
+    let node = new Node(element);
+    if (this.head === null) {
+      this.head = node;
+    } else {
+      let currentNode = this.head;
+      while (currentNode.next) {
+        currentNode = currentNode.next;
+      }
+      currentNode.next = node;
+    }
+  }
+  removeTail() {
+    if (this.head === null) {
+      return false;
+    } else {
+      let currentNode = this.head;
+      let previousNode;
+      while (currentNode.next) {
+        previousNode = currentNode;
+        currentNode = currentNode.next;
+      }
+      previousNode.next = null;
+    }
+  }
+  printAll() {
+    let currentNode = this.head;
+    let printOutput = "";
+    while (currentNode) {
+      printOutput = printOutput.concat(currentNode.element, ",");
+      currentNode = currentNode.next;
+    }
+    console.log(printOutput.slice(0, -1));
+  }
+  forEach(cb) {
+    let currentNode = this.head;
+    while (currentNode) {
+      cb(currentNode.element);
+      currentNode = currentNode.next;
+    }
+  }
+  get size() {
+    let currentNode = this.head;
+    let length = 0;
+    while (currentNode) {
+      length++;
+      currentNode = currentNode.next;
+    }
+    return length;
+  }
+  find(cb) {
+    let currentNode = this.head;
+    while (currentNode) {
+      if (cb(currentNode.element)) {
+        return currentNode.element;
+      }
+      currentNode = currentNode.next;
+    }
+    return -1;
+  }
+}
 
 // Test
 let list = new LinkedList(10);
@@ -40,12 +130,12 @@ list.insertTail(11);
 list.insertTail(12);
 list.printAll(); // 8 9 10 11 12
 list.forEach(alert); // alerts 8 9 10 11 12 one after another
-console.log(list.size()); // 5
+console.log(list.size); // 5
 list.removeHead();
-console.log(list.size()); // 4
+console.log(list.size); // 4
 list.printAll(); // 9 10 11 12
 list.removeTail();
-console.log(list.size()); // 3
+console.log(list.size); // 3
 list.printAll(); // 9 10 11
 console.log(list.find((v) => v > 10)); // 11
 console.log(list.find((v) => v > 100)); // -1
