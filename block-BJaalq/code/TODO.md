@@ -10,8 +10,134 @@ Using the linked list class you created in the previous exercise implement stack
 **YOU HAVE TO USE LINKED LIST TO STORE DATA**
 
 ```js
+class Node {
+  constructor(element) {
+    this.element = element;
+    this.next = null;
+  }
+}
+
+class LinkedList {
+  constructor(head = null) {
+    this.head = head ? new Node(head) : head;
+    this.tail = this.head;
+  }
+  insertHead(element) {
+    let node = new Node(element);
+    if (this.head === null) {
+      this.head = this.tail = node;
+      return node;
+    } else {
+      let currentNode = this.head;
+      node.next = currentNode;
+      this.head = node;
+      return node;
+    }
+  }
+  removeHead() {
+    if (this.head === null) {
+      return false;
+    } else {
+      let currentNode = this.head;
+      this.head = currentNode.next;
+      return currentNode;
+    }
+  }
+  insertTail(element) {
+    let node = new Node(element);
+    if (this.tail === null) {
+      this.head = this.tail = node;
+      return node;
+    } else {
+      this.tail.next = node;
+      this.tail = node;
+      return node;
+    }
+  }
+
+  removeTail() {
+    if (this.tail === null) {
+      return false;
+    } else {
+      let tailNode = this.tail;
+      let currentNode = this.head;
+      let previousNode;
+      while (currentNode.next) {
+        previousNode = currentNode;
+        currentNode = currentNode.next;
+      }
+      if (!previousNode) {
+        this.tail = null;
+        this.head = null;
+        return tailNode;
+      }
+      previousNode.next = null;
+      this.tail = previousNode;
+      return tailNode;
+    }
+  }
+
+  printAll() {
+    let currentNode = this.head;
+    let printOutput = "";
+    while (currentNode) {
+      printOutput = printOutput.concat(currentNode.element, ",");
+      currentNode = currentNode.next;
+    }
+    console.log(printOutput.slice(0, -1));
+  }
+  forEach(cb) {
+    let currentNode = this.head;
+    while (currentNode) {
+      cb(currentNode.element);
+      currentNode = currentNode.next;
+    }
+  }
+  get size() {
+    let currentNode = this.head;
+    let length = 0;
+    while (currentNode) {
+      length++;
+      currentNode = currentNode.next;
+    }
+    return length;
+  }
+  find(cb) {
+    let currentNode = this.head;
+    while (currentNode) {
+      if (cb(currentNode.element)) {
+        return currentNode.element;
+      }
+      currentNode = currentNode.next;
+    }
+    return -1;
+  }
+}
+
 class Stack {
   // your code goes here
+  constructor() {
+    this.storage = new LinkedList();
+  }
+  add(element) {
+    this.storage.insertTail(element);
+    return this.storage.size;
+  }
+  remove() {
+    return this.storage.removeTail().element;
+  }
+  peek() {
+    return this.storage.tail.element;
+  }
+  printAll() {
+    this.storage.printAll().reverse();
+  }
+  isEmpty() {
+    return this.storage.size === 0;
+  }
+  get length() {
+    return this.storage.size;
+  }
 }
 
 // Test 1
@@ -58,6 +184,28 @@ console.log(stack.isEmpty()); // true
 ```js
 class Queue {
   // your code goes here
+  constructor() {
+    this.storage = new LinkedList();
+  }
+  enqueue(element) {
+    this.storage.insertTail(element);
+    return this.storage.size;
+  }
+  dequeue() {
+    return this.storage.removeHead().element;
+  }
+  peek() {
+    return this.storage.head.element;
+  }
+  printAll() {
+    this.storage.printAll().reverse();
+  }
+  isEmpty() {
+    return this.storage.size === 0;
+  }
+  get length() {
+    return this.storage.size;
+  }
 }
 
 // Test 1
