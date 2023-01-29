@@ -40,16 +40,19 @@ class Node {
 
 class LinkedList {
   constructor(head = null) {
-    this.head = new Node(head);
+    this.head = head ? new Node(head) : head;
+    this.tail = this.head;
   }
   insertHead(element) {
     let node = new Node(element);
     if (this.head === null) {
-      this.head = node;
+      this.head = this.tail = node;
+      return node;
     } else {
       let currentNode = this.head;
       node.next = currentNode;
       this.head = node;
+      return node;
     }
   }
   removeHead() {
@@ -58,33 +61,43 @@ class LinkedList {
     } else {
       let currentNode = this.head;
       this.head = currentNode.next;
+      return currentNode;
     }
   }
   insertTail(element) {
     let node = new Node(element);
-    if (this.head === null) {
-      this.head = node;
+    if (this.tail === null) {
+      this.head = this.tail = node;
+      return node;
     } else {
-      let currentNode = this.head;
-      while (currentNode.next) {
-        currentNode = currentNode.next;
-      }
-      currentNode.next = node;
+      this.tail.next = node;
+      this.tail = node;
+      return node;
     }
   }
+
   removeTail() {
-    if (this.head === null) {
+    if (this.tail === null) {
       return false;
     } else {
+      let tailNode = this.tail;
       let currentNode = this.head;
       let previousNode;
       while (currentNode.next) {
         previousNode = currentNode;
         currentNode = currentNode.next;
       }
+      if (!previousNode) {
+        this.tail = null;
+        this.head = null;
+        return tailNode;
+      }
       previousNode.next = null;
+      this.tail = previousNode;
+      return tailNode;
     }
   }
+
   printAll() {
     let currentNode = this.head;
     let printOutput = "";
